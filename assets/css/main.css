@@ -2618,6 +2618,17 @@ input, select, textarea {
 			top: 0.75rem;
 		}
 
+		.image.small {
+			display: block;
+			margin: 2.5rem 0;
+			width: 100%;
+		}
+
+			.image.small img {
+				align-items: center;
+				border: 1px solid black;
+			}
+
 		.image.fit {
 			display: block;
 			margin: 2.5rem 0;
@@ -3830,6 +3841,60 @@ input, select, textarea {
 
 			}
 
+			#main > #capabilities > .posts {
+				display: -moz-flex;
+				display: -webkit-flex;
+				display: -ms-flex;
+				display: flex;
+				-moz-flex-wrap: wrap;
+				-webkit-flex-wrap: wrap;
+				-ms-flex-wrap: wrap;
+				flex-wrap: wrap;
+				-moz-align-items: -moz-stretch;
+				-webkit-align-items: -webkit-stretch;
+				-ms-align-items: -ms-stretch;
+				align-items: stretch;
+				text-align: center;
+				width: 100%;
+				padding: 0;
+			}
+	
+				#main > #capabilities > .posts > * {
+					-moz-flex-shrink: 1;
+					-webkit-flex-shrink: 1;
+					-ms-flex-shrink: 1;
+					flex-shrink: 1;
+					-moz-flex-grow: 0;
+					-webkit-flex-grow: 0;
+					-ms-flex-grow: 0;
+					flex-grow: 0;
+				}
+	
+				#main > #capabilities > .posts > * {
+					padding: 0.5rem;
+					width: 25%;
+				}
+	
+				#main > #capabilities > .posts > article {
+					border-color: #eeeeee;
+					border-left-width: 2px;
+					border-style: solid;
+					border-top-width: 2px;
+					text-align: center;
+				}
+	
+					#main > #capabilities > .posts > article > :last-child {
+						margin-bottom: 0;
+					}
+	
+					#main > #capabilities > .posts > article:nth-child(4n+1) {
+						border-left-width: 0;
+					}
+	
+					#main > #capabilities > .posts > article:nth-child(-n + 4) {
+						border-top-width: 0;
+					}
+
 			#main > #skills > .posts {
 				display: -moz-flex;
 				display: -webkit-flex;
@@ -3860,7 +3925,7 @@ input, select, textarea {
 				}
 	
 				#main > #skills > .posts > * {
-					padding: 4rem;
+					padding: 1rem;
 					width: 33%;
 				}
 	
@@ -3876,15 +3941,15 @@ input, select, textarea {
 						margin-bottom: 0;
 					}
 	
-					#main > #skills > .posts > article:nth-child(3n+1) {
+					#main > #skills > .posts > article:nth-child(4n+1) {
 						border-left-width: 0;
 					}
 	
-					#main > #skills > .posts > article:nth-child(-n + 3) {
+					#main > #skills > .posts > article:nth-child(-n + 4) {
 						border-top-width: 0;
 					}
 
-		#main > #portfolio > .posts, #main > #experience > .posts {
+		#main > #blog > .posts {
 			display: -moz-flex;
 			display: -webkit-flex;
 			display: -ms-flex;
@@ -3902,7 +3967,7 @@ input, select, textarea {
 			padding: 0;
 		}
 
-			#main > #portfolio > .posts > *, #main > #experience > .posts > * {
+			#main > #blog > .posts > * {
 				-moz-flex-shrink: 1;
 				-webkit-flex-shrink: 1;
 				-ms-flex-shrink: 1;
@@ -3911,18 +3976,91 @@ input, select, textarea {
 				-webkit-flex-grow: 0;
 				-ms-flex-grow: 0;
 				flex-grow: 0;
+				transition: box-shadow 0.5s ease;
 			}
 
-			#main > #portfolio > .posts > *, #main > #experience > .posts > * {
+			#main  #blog > .posts > *:hover {
+				box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
+			}
+
+			#main > #blog > .posts > * {
+				padding: 1rem 2rem 1rem 2rem;
+				width: 100%;
+			}
+
+			#main > #blog > .posts > article {
+				border-color: #eeeeee;
+				border-left-width: 2px;
+				border-style: solid;
+				border-top-width: 2px;
+				text-align: left;
+				line-height: 1.5rem;
+			}
+
+			#main > #blog > .posts > article > .blog_content > header > h3 {
+				margin: 0.5rem;
+			}
+
+			#main > #blog > .posts > article > .blog_content > header > .date {
+				margin: 0.5rem;
+			}
+
+			#main > #blog > .posts > article .image{
+				max-width: 30%;
+			}
+
+		.codeblock {
+			display: block;
+			background-color: rgba(230,230,200,1);
+			color: blue;
+			font-family: 'Lucida Console';
+			padding: 0.5rem;
+		}
+
+		#main  #portfolio > .posts, #main > #experience > .posts {
+			display: -moz-flex;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: flex;
+			-moz-flex-wrap: wrap;
+			-webkit-flex-wrap: wrap;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			-moz-align-items: -moz-stretch;
+			-webkit-align-items: -webkit-stretch;
+			-ms-align-items: -ms-stretch;
+			align-items: stretch;
+			text-align: center;
+			width: 100%;
+			padding: 0;
+		}
+
+			#main  #portfolio > .posts > *, #main > #experience > .posts > * {
+				-moz-flex-shrink: 1;
+				-webkit-flex-shrink: 1;
+				-ms-flex-shrink: 1;
+				flex-shrink: 1;
+				-moz-flex-grow: 0;
+				-webkit-flex-grow: 0;
+				-ms-flex-grow: 0;
+				flex-grow: 0;
+				transition: box-shadow 0.5s ease;
+			}
+
+			#main  #portfolio > .posts > *:hover {
+				box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
+			}
+
+			#main  #portfolio > .posts > *, #main > #experience > .posts > * {
 				width: 50%;
 			}
 
-			#main > #portfolio > .posts > *, #main > #experience > .posts > * {
+			#main  #portfolio > .posts > *, #main > #experience > .posts > * {
 				padding: 4rem;
 				width: 50%;
 			}
 
-			#main > #portfolio > .posts > article, #main > #experience > .posts > article {
+			#main  #portfolio > .posts > article, #main > #experience > .posts > article {
 				border-color: #eeeeee;
 				border-left-width: 2px;
 				border-style: solid;
@@ -3930,17 +4068,17 @@ input, select, textarea {
 				text-align: center;
 			}
 
-				#main > #portfolio > .posts > article > :last-child,
+				#main  #portfolio > .posts > article > :last-child,
 				#main > #experience > .posts > article > :last-child {
 					margin-bottom: 0;
 				}
 
-				#main > #portfolio > .posts > article:nth-child(2n - 1),
+				#main  #portfolio > .posts > article:nth-child(2n - 1),
 				#main > #experience > .posts > article:nth-child(2n - 1) {
 					border-left-width: 0;
 				}
 
-				#main > #portfolio > .posts > article:nth-child(-n + 2),
+				#main  #portfolio > .posts > article:nth-child(-n + 2),
 				#main > #experience > .posts > article:nth-child(-n + 2) {
 					border-top-width: 0;
 				}

@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Auchinto Chatterjee</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Auchinto Chatterjee</h1>
+						<hr>
+						<h2>Data Scientist</h2>
+						<p>Looking forward to solve interesting problems...</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Welcome</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="../index.html">My Story</a></li>
+							<li><a href="../portfolio.html">Portfolio</a></li>
+							<li class="active"><a href="../blog.html">Blog</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/auchinto-c/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/auchinto-c" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.twitter.com/auchinto_c" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<section class="post">
+							<header class="major">
+								<span class="date">August 14, 2022</span>
+								<h1>Introduction to Building apps using Flask</h1>
+								<p>Flask is a web application micro-framework, which helps in the development of light-weight applications written in Python for the web. These applications take advantage of REST API architecture, which can be used either to just produce back-end services or entire GUI incorporated platforms. This article gives an introduction to setting up and start building web applications using Python-Flask.</p>
+							</header>
+                            <h2>Background</h2>
+                            <p>Before starting with the implementation, we need to understand how the web applications are deployed to the web servers. Here is a diagram demonstrating the different components in a production setup with an application hosted on a server.</p>
+							<div class="image fit"><img src="../images/blog/flask/wsgi.png" alt="" /></div>
+							
+							<p><ul>
+                                <li>Suppose we have a web Application (A) and it is hosted on a web server (B). The web application can be implemented using any framework, here let’s consider it’s Flask. While the most commonly used servers are Apache, nginx and IIS. </li>
+                                <li>Clients (C) make requests to the web server (B) to access the app (A). These requests are supposed to be served by the application (A). But we need a protocol that takes care of the interaction between app (A) and server (B).</li>
+                                <li>This protocol is called Web Server Gateway Interface (WSGI), which is responsible for the interaction between server and app. It also takes care of servicing multiple clients by starting up multiple instances of the app (A), such that these client instances stay isolated in operation. Some widely used production WSGI services are Gunicorn and uWSGI.</li>
+                                </ul>
+
+                                Flask is based on two primary components, WSGI protocol and Jinja2 Template Engine. While WSGI protocol enables the application to establish interaction with the web server. During implementation Flask takes advantage of Werkzeug’s WSGI development server, which sets up the application in local. We will be seeing that in action in the following sections.<br>
+                                
+                                Jinja2 is responsible to use client-side templates and data sources to render dynamic pages. <br>
+                                
+                                <ul>
+                                <li>These client-side templates can be created using HTML, CSS, JS and so on.</li>
+                                <li>The data sources can be local variables, files, databases or models, which populate the placeholders in the said templates.</li>
+                                </ul>
+
+                                We will be talking more about Jinja and rendering templates in the upcoming sections.</p>
+                            
+                            <h2>Installation</h2>
+                            <p>Assuming we have Anaconda Python installed in our system. First we need to create a new conda environment as follows:
+
+                                <div class="codeblock">
+                                    $ conda create -n flask-app
+                                </div>
+                                
+                                Now in this new environment we need to install flask as follows:
+                                
+                                <div class="codeblock">
+                                    $ conda activate flask-app
+                                    (flask-app)$ pip install flask
+                                </div>  
+                                
+                                Now we can get started with actually developing a simple web application using Flask.</p>
+                            <h2>Basic Web Application</h2>
+                            <p>Create a new file in this environment as ‘app.py’ and write the code as follows:<br>
+
+                                <div class="codeblock">
+                                    from flask import Flask
+                                    
+                                    app = Flask(__name__)
+                                    
+                                    @app.route('/')
+                                    def function():
+                                        return 'Hello World'
+                                    
+                                    if __name__ == '__main__':
+                                    app.run()
+                                </div>
+                                
+                                Let’s first run the application from the terminal using the following command:<br>
+                                
+                                <div class="codeblock">
+                                    (flask-app)$ python app.py
+                                </div>
+                                
+                                The terminal should read as follows:<br>
+                                
+                                <div class="image fit"><img src="../images/blog/flask/console_view.jpg" alt="" /></div>
+                                
+                                Now we can open ‘http://127.0.0.1:5000/’ in the browser, and it should show up as follows:<br>
+                                
+                                <div class="image small"><img src="../images/blog/flask/app1.jpg" alt="" /></div>
+                                
+                                This means that our application is running, and we are obtaining the expected output. Now let’s understand the code that we have written.<br>
+                                
+                                <div class="codeblock">
+                                    from flask import Flask
+                                </div>
+                                
+                                From the ‘flask’ package we are importing the ‘Flask’ class. <br>
+                                
+                                <div class="codeblock">
+                                    app = Flask(__name__)
+                                </div>
+                                
+                                Here we instantiate a new Flask application and store it in a variable ‘app’. This instance (app) is actually the WSGI app that is used on a server. In flask, we need not set up WSGI app separately since it’s natively provided.<br>
+                                
+                                <div class="codeblock">
+                                    @app.route('/')
+                                    def function():
+                                        return 'Hello World'
+                                </div>
+                                
+                                Here ‘@app.route’ is called a decorator and it is used to define a route or an API endpoint that can be used as an entry-point on a deployed application. It takes in two parameters (rule, **options). ‘rule’ is where we define the endpoint.<br>
+                                
+                                Here we are sending ‘rule = ‘/’’, but rule can also be something like ‘rule = ‘/feature’.<br>
+                                
+                                <div class="codeblock">
+                                    app.run()
+                                </div>
+                                
+                                Finally we are initiating the execution of WSGI app. run() takes in five arguments: host, port, debug, load_dotenv and options. All these are optional. Instead of running the application on default ‘127.0.0.1:5000’, we can run it on custom host:port. We can run the application in debug mode by setting ‘debug=True’. And ‘load_dotenv’ is to load .env or .flaskenv files to load specific flask environment variables.</p>
+                            <h2>Including HTML in the web application</h2>
+                            <p>First of all to include html files we need to create a ‘templates’ folder in the same folder as that of ‘app.py’, and put our html file within this folder. The folder structure should look something as shown.<br>
+
+                                <div class="image right"><img src="../images/blog/flask/html_structure.jpg" alt="" /></div>
+                                
+                                Now we need to import another module from the flask package, ‘render_template’ which uses Jinja2 template engine to render  a page, provided a template html file. We are going to mention index.html as the template and also pass a value to populate the ‘result’ placeholder.
+                                
+                                Create an index.html file in the templates folder as follows:<br>
+                                
+                                <div class="codeblock">
+                                    &lt;html&gt;
+                                    &lt;body&gt;
+                                    &lt;h1&gt;Hello World&lt;/h1&gt;
+                                    &lt;h2&gt;{{ result }}&lt;/h2&gt;
+                                    &lt;/body&gt;
+                                    &lt;/html&gt;
+                                </div>
+                                
+                                Update your [app.py](http://app.py) as follows:<br>
+                                
+                                <div class="codeblock">
+                                    from flask import Flask, render_template
+                                    
+                                    app = Flask(__name__)
+                                    
+                                    @app.route('/')
+                                    def function():
+                                        res = 'Sent Value'
+                                        return render_template('index.html', result=res)
+                                    
+                                    if __name__ == '__main__':
+                                    app.run()
+                                </div>
+                                
+                                And now run the application, you should see the browser result as follows:
+                                <div class="image small"><img src="../images/blog/flask/app2.jpg" alt="" /></div></p>
+                            <h2>Including CSS in the web application</h2>
+                            <p>To include CSS files, we need to create the folder structure as follows:<br>
+
+                                <div class="image small"><img src="../images/blog/flask/css_structure.jpg" alt="" /></div>
+                                
+                                Write the following code in style.css:
+                                
+                                <div class="codeblock">
+                                    h1 {
+                                        color: blue;
+                                    }
+                                    
+                                    h2 {
+                                        color: green;
+                                    }
+                                </div>
+                                
+                                And we need to include the following line in our <head> tag of the template index.html :<br>
+                                
+                                <div class="codeblock">
+                                    &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ url_for('static', filename='css/style.css') }}&quot; /&gt;
+                                </div>
+                                
+                                And also include a new module in our app.py, ‘url_for’<br>
+                                
+                                <div class="codeblock">
+                                    from flask import Flask, render_template, url_for
+                                </div>
+                                
+                                Now in browser we can see the stylised version.
+                                <div class="image small"><img src="../images/blog/flask/app3.jpg" alt="" /></div>
+                            </p>
+                            <h2>Including JS in the web application</h2>
+                            <p>Including JS, similar to CSS. Folder structure as follows:<br>
+
+                                <div class="image small"><img src="../images/blog/flask/js_structure.jpg" alt="" /></div>
+                                
+                                Add the following line to script.js:<br>
+                                
+                                <div class="codeblock">
+                                    alert("The page has reloaded");
+                                </div>
+                                
+                                Following line in <head> tag:<br>
+                                
+                                <div class="codeblock">
+                                    &lt;script type=&quot;text/javascript&quot; src=&quot;{{ url_for('static', filename='js/script.js') }}&quot;&gt;&lt;/script&gt;
+                                </div>
+                                
+                                Finally the result in browser:
+                                <div class="image small"><img src="../images/blog/flask/app4.jpg" alt="" /></div>
+                            </p>
+                            <h2>Conclusion</h2>
+                            <p>In this article we had a quick overview of what is Flask, and how it works. We learnt to build a basic REST API application using Flask and finally provide rendered pages using HTML, CSS and JS. With these fundamentals, quick prototype applications can be built. As we saw Flask is a flexible, micro-framework for light-weight applications. For large scale production application we have more robust framework such as Django.</p>
+						</section>
+					</div>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Auchinto Chatterjee, 2022 </li><li>Design: Massively by @ajlkn - <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
